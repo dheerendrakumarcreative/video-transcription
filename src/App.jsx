@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// const baseUrl = "https://q4n0z4bt-8002.inc1.devtunnels.ms/api/v1";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function App() {

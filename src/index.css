@@ -1,0 +1,55 @@
+.plan-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: rgb(13, 178, 234);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: blue;
+}
+
+input {
+  padding: 10px 15px;
+  border-radius: 8px;
+  outline: none;
+  border: 2px solid #ddd;
+}
+input:focus {
+  box-shadow: 0 0 3px 2px rgb(10, 171, 225);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: start;
+}
+.search {
+  display: flex;
+  gap: 12px;
+}
+.transcript {
+  padding: 10px 20px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+.box {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.box > div {
+  padding: 10px 20px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+.plan-container > li {
+  margin-top: 0;
+}

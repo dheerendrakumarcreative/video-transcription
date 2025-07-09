@@ -8,80 +8,102 @@ function App() {
   const [link, setLink] = useState("");
   const [loadingGenerate, setLoadingGenerate] = useState(false);
   const [loadingGeneratePlan, setLoadingGeneratePlan] = useState(false);
+  const [isGenerateError, setIsGenerateError] = useState(false);
+  const [isPlanError, setIsPlanError] = useState(false);
   const [generateError, setGenerateError] = useState("");
   const [generatePlanError, setGeneratePlanError] = useState("");
+  const [status, setStatus] = useState({ message: "", isCompleted: true });
 
   const handleGenerate = () => {
-  setLoadingGenerate(true);
-  setGenerateError("");
-  setGeneratePlanError("")
-  setTranscript("")
-  setPlan([]);
-  fetch(`${baseUrl}/transcribe`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ url: link }),
-  })
-    .then(async (res) => {
-      const data = await res.json(); // always read the body
-      if (!res.ok) {
-        throw data; // throw the error response so it goes to catch
-      }
-      return data;
+    setIsGenerateError(false);
+    setIsPlanError(false);
+    setLoadingGenerate(true);
+    setGenerateError("");
+    setGeneratePlanError("");
+    setTranscript("");
+    setPlan([]);
+    fetch(`${baseUrl}/transcribe`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: link }),
     })
-    .then((data) => {
-      console.log(data);
-      setTranscript(data?.transcript || "");
-      setLoadingGenerate(false);
-    })
-    .catch((err) => {
-      console.error("Transcription error:", err);
-      const msg =
-        err?.detail?.[0]?.msg || err?.message || "Something went wrong";
-      setGenerateError(msg);
-      setLoadingGenerate(false);
-    });
-};
-
+      .then(async (res) => {
+        const data = await res.json(); // always read the body
+        if (!res.ok) {
+          throw data; // throw the error response so it goes to catch
+        }
+        return data;
+      })
+      .then((data) => {
+        console.log(data);
+        setTranscript(data?.transcript || "");
+        setLoadingGenerate(false);
+      })
+      .catch((err) => {
+        console.error("Transcription error:", err);
+        setIsGenerateError(true);
+        const msg = err?.detail || err?.message || "Something went wrong";
+        setGenerateError(msg);
+        setLoadingGenerate(false);
+      });
+  };
 
   const handlePlan = () => {
-  setLoadingGeneratePlan(true);
-  setGeneratePlanError(""); // Clear previous error
+    setLoadingGeneratePlan(true);
+    setGeneratePlanError(""); // Clear previous error
 
-  fetch(`${baseUrl}/action_points`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ transcript }),
-  })
-    .then(async (res) => {
-      const data = await res.json();
-      if (!res.ok) {
-        throw data;
+    fetch(`${baseUrl}/action_points`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ transcript }),
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) {
+          throw data;
+        }
+        return data;
+      })
+      .then((data) => {
+        console.log(data);
+        setPlan(data?.gen_task || []);
+        setLoadingGeneratePlan(false);
+      })
+      .catch((err) => {
+        console.error("Plan generation error:", err);
+        setIsPlanError(true);
+        const msg = err?.detail || "Failed to generate plan.";
+        setGeneratePlanError(msg);
+        setLoadingGeneratePlan(false);
+      });
+  };
+
+  function findStatus() {
+    const intervalId = setInterval(async () => {
+      try {
+        const response = await fetch(`${baseUrl}`);
+        const data = await response.json();
+
+        console.log("Polled data:", data);
+
+        if (data.isCompleted) {
+          console.log("Polling complete.");
+          clearInterval(intervalId);
+        }
+      } catch (error) {
+        console.error("Polling error:", error);
       }
-      return data;
-    })
-    .then((data) => {
-      console.log(data);
-      setPlan(data?.gen_task || []);
-      setLoadingGeneratePlan(false);
-    })
-    .catch((err) => {
-      console.error("Plan generation error:", err);
-      const msg =
-        err?.detail || "Failed to generate plan.";
-      setGeneratePlanError(msg);
-      setLoadingGeneratePlan(false);
-    });
-};
-
+    }, 1000 * 5);
+  }
 
   return (
     <div className="box">
       <div>
+        {!status.isCompleted && <div className="status"> <b>Status:</b> {status.message} </div>}
         <h1>Convert Video To Text</h1>
         <p>Enter a video link to generate a text-based plan of action</p>
         <div className="container">
@@ -91,38 +113,40 @@ function App() {
               type="text"
               placeholder="Enter link"
               value={link}
-              onChange={(e) => {setLink(e.target.value)}}
+              onChange={(e) => {
+                setLink(e.target.value);
+              }}
             />
             <button onClick={handleGenerate} disabled={loadingGenerate}>
               {loadingGenerate ? "Generating..." : "Generate"}
             </button>
           </div>
 
-          {generateError?.length > 0 && (
-            <p style={{ color: "red" }}>{generateError}</p>
+          {isGenerateError && <p style={{ color: "red" }}>{generateError}</p>}
+          {transcript?.length > 0 && (
+            <div>
+              <b>Generated Text</b>
+              <p className="transcript">{transcript}</p>
+            </div>
           )}
-          {transcript?.length > 0 &&
-          <div>
-            <b>Generated Text</b>
-            <p className="transcript">{transcript}</p>
-          </div>
-          }
 
-          {transcript?.length !== 0 && <button onClick={handlePlan} disabled={loadingGeneratePlan}>
-            {loadingGeneratePlan ? "Generating Plan..." : "Generate Plan"}
-          </button> }
-
-          {generatePlanError?.length > 0 && (
-            <p style={{ color: "red" }}>{generatePlanError}</p>
+          {transcript?.length !== 0 && (
+            <button onClick={handlePlan} disabled={loadingGeneratePlan}>
+              {loadingGeneratePlan ? "Generating Plan..." : "Generate Plan"}
+            </button>
           )}
-          {plan.length > 0 &&<div className="plan-section">
-            <b>Plan of Action</b>
-            <ul className="plan-container">
-              {plan.map((value, index) => (
-                <li key={index}>{value}</li>
-              ))}
-            </ul>
-          </div>}
+
+          {isPlanError && <p style={{ color: "red" }}>{generatePlanError}</p>}
+          {plan.length > 0 && (
+            <div className="plan-section">
+              <b>Plan of Action</b>
+              <ul className="plan-container">
+                {plan.map((value, index) => (
+                  <li key={index}>{value}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>

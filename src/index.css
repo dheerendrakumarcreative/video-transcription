@@ -53,3 +53,8 @@ input:focus {
 .plan-container > li {
   margin-top: 0;
 }
+.status {
+  background-color: rgb(10, 171, 225);
+  padding: 10px 20px;
+  border-radius: 8px;
+}

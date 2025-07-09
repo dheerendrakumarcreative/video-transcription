@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
+const baseUrl = "http://127.0.0.1:8000/api/v1"
 
 function App() {
   const [transcript, setTranscript] = useState("");
@@ -13,8 +13,10 @@ function App() {
   const [generateError, setGenerateError] = useState("");
   const [generatePlanError, setGeneratePlanError] = useState("");
   const [status, setStatus] = useState({ message: "", isCompleted: true });
+  const [intervalTime, setIntervalTime] = useState(1000);
 
   const handleGenerate = () => {
+    setStatus((pre => ({...pre, isCompleted: true, message: ""})))
     setIsGenerateError(false);
     setIsPlanError(false);
     setLoadingGenerate(true);
@@ -22,6 +24,7 @@ function App() {
     setGeneratePlanError("");
     setTranscript("");
     setPlan([]);
+    findStatus();
     fetch(`${baseUrl}/transcribe`, {
       method: "POST",
       headers: {
@@ -44,7 +47,7 @@ function App() {
       .catch((err) => {
         console.error("Transcription error:", err);
         setIsGenerateError(true);
-        const msg = err?.detail || err?.message || "Something went wrong";
+        const msg = (typeof err?.detail === "string" && err?.detail) || err?.message || "Something went wrong";
         setGenerateError(msg);
         setLoadingGenerate(false);
       });
@@ -83,23 +86,31 @@ function App() {
   };
 
   function findStatus() {
+    setStatus((pre) => ({...pre, isCompleted: false}))
     const intervalId = setInterval(async () => {
       try {
-        const response = await fetch(`${baseUrl}`);
+        const response = await fetch(`${baseUrl}/status-update`);
         const data = await response.json();
-
+        if (!response.ok) {
+          throw data;
+        }
+        if(data?.source === "loom" || data?.source === "awesomess")
+        setIntervalTime(5000)
+        setStatus((pre) => ({...pre, message: data?.step}))
         console.log("Polled data:", data);
 
-        if (data.isCompleted) {
+        if (data?.step === 'All steps completed') {
           console.log("Polling complete.");
+          // setStatus((pre) => ({...pre, isCompleted: true, message: ""}))
           clearInterval(intervalId);
         }
       } catch (error) {
         console.error("Polling error:", error);
+        setStatus((pre) => ({...pre, isCompleted: true}))
       }
-    }, 1000 * 5);
+    }, intervalTime);
   }
-
+  console.log(status)
   return (
     <div className="box">
       <div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const baseUrl = "http://127.0.0.1:8000/api/v1"
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function App() {
   const [transcript, setTranscript] = useState("");
@@ -108,6 +108,7 @@ function App() {
       } catch (error) {
         console.error("Polling error:", error);
         setStatus((pre) => ({...pre, isCompleted: true}));
+        clearInterval(intervalId);
       }
     }, intervalTime);
   }

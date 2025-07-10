@@ -92,10 +92,11 @@ function App() {
         const response = await fetch(`${baseUrl}/status-update`);
         const data = await response.json();
         if (!response.ok) {
+          clearInterval(intervalId);
           throw data;
         }
         if(data?.source === "loom" || data?.source === "awesomess")
-        setIntervalTime(5000)
+        setIntervalTime(10000)
         setStatus((pre) => ({...pre, message: data?.step}))
         console.log("Polled data:", data);
 
@@ -106,7 +107,7 @@ function App() {
         }
       } catch (error) {
         console.error("Polling error:", error);
-        setStatus((pre) => ({...pre, isCompleted: true}))
+        setStatus((pre) => ({...pre, isCompleted: true}));
       }
     }, intervalTime);
   }

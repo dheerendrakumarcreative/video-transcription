@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
+const baseUrl = "http://127.0.0.1:8001/api/v1";
 
 function App() {
   const [transcript, setTranscript] = useState("");
@@ -13,17 +13,17 @@ function App() {
   const [generateError, setGenerateError] = useState("");
   const [generatePlanError, setGeneratePlanError] = useState("");
   const [status, setStatus] = useState({ message: "", isCompleted: true });
-  // const [intervalTime, setIntervalTime] = useState(1000);
 
   const handleGenerate = () => {
-    setStatus((pre => ({...pre, isCompleted: true, message: ""})))
-    setIsGenerateError(false);
-    setIsPlanError(false);
-    setLoadingGenerate(true);
-    setGenerateError("");
-    setGeneratePlanError("");
     setTranscript("");
     setPlan([]);
+    setIsGenerateError(false);
+    setIsPlanError(false);
+    setGenerateError("");
+    setGeneratePlanError("");
+    setStatus({ message: "", isCompleted: false });
+    setLoadingGenerate(true);
+
     fetch(`${baseUrl}/transcribe`, {
       method: "POST",
       headers: {
@@ -32,30 +32,59 @@ function App() {
       body: JSON.stringify({ url: link }),
     })
       .then(async (res) => {
-        const data = await res.json(); // always read the body
         if (!res.ok) {
-          throw data; // throw the error response so it goes to catch
+          const errorText = await res.text();
+          throw new Error(errorText);
         }
-        return data;
-      })
-      .then((data) => {
-        console.log(data);
-        setTranscript(data?.transcript || "");
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+
+        let isTranscriptStarted = false;
+        let isTranscriptEnded = false;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          const chunk = decoder.decode(value, { stream: true });
+          console.log("Chunk:", chunk);
+          if(!isTranscriptStarted) {
+            setStatus(pre => ({...pre, message: pre.message + " " + chunk + " ✅"}))
+          }
+          // Start streaming after TRANSCRIPT_START
+          if (chunk.includes("TRANSCRIPT_START")) {
+            isTranscriptStarted = true;
+            setStatus(pre => ({...pre, message: ""}))
+            const afterStart = chunk.split("TRANSCRIPT_START")[1];
+            // setTranscript((prev) => prev + chunk);
+          } else if (isTranscriptStarted && !isTranscriptEnded) {
+            if (chunk.includes("TRANSCRIPT_END")) {
+              isTranscriptEnded = true;
+              const beforeEnd = chunk.split("TRANSCRIPT_END")[0];
+              setTranscript((prev) => prev + beforeEnd);
+              setStatus({ message: "Transcription completed!", isCompleted: true });
+            } else {
+              setTranscript((prev) => prev + chunk);
+            }
+          }
+        }
+
         setLoadingGenerate(false);
       })
       .catch((err) => {
         console.error("Transcription error:", err);
         setIsGenerateError(true);
-        const msg = (typeof err?.detail === "string" && err?.detail) || err?.message || "Something went wrong";
+        const msg = err?.message || "Something went wrong";
         setGenerateError(msg);
+        setStatus({ message: "", isCompleted: true });
         setLoadingGenerate(false);
       });
-      // findStatus();
   };
 
   const handlePlan = () => {
     setLoadingGeneratePlan(true);
-    setGeneratePlanError(""); // Clear previous error
+    setGeneratePlanError("");
 
     fetch(`${baseUrl}/action_points`, {
       method: "POST",
@@ -72,7 +101,6 @@ function App() {
         return data;
       })
       .then((data) => {
-        console.log(data);
         setPlan(data?.gen_task || []);
         setLoadingGeneratePlan(false);
       })
@@ -85,38 +113,15 @@ function App() {
       });
   };
 
-  // function findStatus() {
-  //   setStatus((pre) => ({...pre, isCompleted: false}))
-  //   const intervalId = setInterval(async () => {
-  //     try {
-  //       const response = await fetch(`${baseUrl}/status-update`);
-  //       const data = await response.json();
-  //       if (!response.ok) {
-  //         clearInterval(intervalId);
-  //         throw data;
-  //       }
-  //       if(data?.source === "loom" || data?.source === "awesomess")
-  //       setIntervalTime(10000)
-  //       setStatus((pre) => ({...pre, message: data?.step}))
-  //       console.log("Polled data:", data);
-
-  //       if (data?.step === 'All steps completed') {
-  //         console.log("Polling complete.");
-  //         // setStatus((pre) => ({...pre, isCompleted: true, message: ""}))
-  //         clearInterval(intervalId);
-  //       }
-  //     } catch (error) {
-  //       console.error("Polling error:", error);
-  //       setStatus((pre) => ({...pre, isCompleted: true}));
-  //       clearInterval(intervalId);
-  //     }
-  //   }, intervalTime);
-  // }
-
   return (
     <div className="box">
       <div>
-        {!status.isCompleted && <div className="status"> <b>Status:</b> {status.message} </div>}
+        {!status.isCompleted && status.message && (
+          <div className="status">
+            <b>Status:</b> {status.message}
+          </div>
+        )}
+
         <h1>Convert Video To Text</h1>
         <p>Enter a video link to generate a text-based plan of action</p>
         <div className="container">
@@ -126,9 +131,7 @@ function App() {
               type="text"
               placeholder="Enter link"
               value={link}
-              onChange={(e) => {
-                setLink(e.target.value);
-              }}
+              onChange={(e) => setLink(e.target.value)}
             />
             <button onClick={handleGenerate} disabled={loadingGenerate}>
               {loadingGenerate ? "Generating..." : "Generate"}
@@ -136,20 +139,26 @@ function App() {
           </div>
 
           {isGenerateError && <p style={{ color: "red" }}>{generateError}</p>}
+
           {transcript?.length > 0 && (
             <div>
-              <b>Generated Text</b>
-              <p className="transcript">{transcript}</p>
+              <b>Generated Transcript (Streaming):</b>
+              <p className="transcript">
+                {transcript}
+              </p>
             </div>
           )}
 
-          {transcript?.length !== 0 && (
+          {transcript && (
             <button onClick={handlePlan} disabled={loadingGeneratePlan}>
               {loadingGeneratePlan ? "Generating Plan..." : "Generate Plan"}
             </button>
           )}
 
-          {isPlanError && <p style={{ color: "red" }}>{generatePlanError}</p>}
+          {isPlanError && (
+            <p style={{ color: "red" }}>{generatePlanError}</p>
+          )}
+
           {plan.length > 0 && (
             <div className="plan-section">
               <b>Plan of Action</b>

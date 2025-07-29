@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const baseUrl = "http://127.0.0.1:8001/api/v1";
+const baseUrl = "https://transcript.creativebuffer.com/api/v1";
 
 function App() {
   const [transcript, setTranscript] = useState("");

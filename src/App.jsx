@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
-
+console.log("baseUrl============>", baseUrl);
 function App() {
   const [transcript, setTranscript] = useState("");
   const [plan, setPlan] = useState([]);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const baseUrl = "https://transcript.creativebuffer.com/api/v1";
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 function App() {
   const [transcript, setTranscript] = useState("");

@@ -1142,7 +1142,8 @@ div#nav-tabContent {
     font-size: 0;
     position: absolute;
     right: 0;
-    padding: 18px 0;
+    top: 0;
+    padding: 19px 0;
     max-width: 65px;
     min-width: 65px;
   }

@@ -11,7 +11,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL
 function Transcript() {
   
   const [transcript, setTranscript] = useState("");
-  const [source, setSource] = useState({firstUrlSource: "", secondUrlSource: ""});
+  const [source, setSource] = useState({firstUrlSource: "first url", secondUrlSource: "second url"});
   const [plan, setPlan] = useState([]);
   const [link, setLink] = useState("");
   const [loadingGenerate, setLoadingGenerate] = useState(false);

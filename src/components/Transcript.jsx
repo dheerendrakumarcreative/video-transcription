@@ -271,7 +271,7 @@ function Transcript() {
           <div className="serch-wrap">
           <input
             type="url"
-            placeholder="Enter Second URL here..."
+            placeholder="Enter your Second URL here..."
             value={linkSecond}
             onChange={(e) => {setLinkSecond(e.target.value);
               setSource(prev => ({...prev, secondUrlSource: e.target.value.split(".")[1] === "youtube" ? "youtube" : e.target.value.split(".")[1] === "loom" ? "loom" :

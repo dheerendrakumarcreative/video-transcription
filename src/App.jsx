@@ -73,8 +73,8 @@ export default function App() {
 
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16">
               <motion.div className="keyf-card" whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                 initial={{ opacity: 0, y: 50 }}
+              
                 transition={{ duration: 0.4, delay: .5 }}
                 viewport={{ once: true }}>
                 <figure>
@@ -86,8 +86,8 @@ export default function App() {
             </div>
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16">
               <motion.div className="keyf-card" whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                
                 transition={{ duration: 0.4, delay: .9 }}
                 viewport={{ once: true }}>
                 <figure>
@@ -99,8 +99,8 @@ export default function App() {
             </div>
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16">
               <motion.div className="keyf-card" whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+               
                 transition={{ duration: 0.4, delay: 1.5 }}
                 viewport={{ once: true }}>
                 <figure>
@@ -118,8 +118,8 @@ export default function App() {
       <section id="generate-section" className="p-80">
         <div className="container" >
           <motion.div className="text-center subheading" whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+             initial={{ opacity: 0, y: 50 }}
+            
             transition={{ duration: 0.4, delay: .5 }}
             viewport={{ once: true }}>
             <h2>Turn Your Videos into Text</h2>
@@ -138,15 +138,15 @@ export default function App() {
       <section className="howitswork-section grey-bg p-80">
         <div className="container">
           <motion.div className="text-center subheading" whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+            
             transition={{ duration: 0.4, delay:.5 }}
             viewport={{ once: true }}>
             <h2>How It Works</h2>
             <p>Three simple steps to transform your videos into actionable insights</p>
           </motion.div>
-          <motion.div className="row relative" hileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
+          <motion.div className="row relative" 
+           initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay:.8 }}>
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16 relative">
@@ -188,16 +188,16 @@ export default function App() {
       <section className="faq-section p-80">
         <div className="container">
           <motion.div className="text-center subheading" whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+             initial={{ opacity: 0, y: 50 }}
+           
             transition={{ duration: 0.4, delay:.5 }}
             viewport={{ once: true }}>
             <h2>FAQ</h2>
             <p>Get answers to common questions about our service</p>
           </motion.div>
           <motion.div className="faq-question-list" whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+             initial={{ opacity: 0, y: 50 }}
+           
             transition={{ duration: 0.4, delay:1 }}
             viewport={{ once: true }}>
             <div className="accordion" id="accordionExample">
@@ -257,8 +257,8 @@ export default function App() {
       <footer className="footer-section p-64">
         <div className="container">
           <motion.div className="text-center" whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 50 }}
+         
             transition={{ duration: 0.4, delay:.5 }}
             viewport={{ once: true }}>
             <h3>Get started in seconds and never miss a key takeaway again.</h3>
@@ -269,8 +269,8 @@ export default function App() {
             </div>
           </motion.div>
           <motion.div className="coptyRight d-flex justify-content-between align-items-center" whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+          
             transition={{ duration: 0.4, delay:1 }}>
             <a href="https://creativebuffer.com/contact-us/" target="_blank"> <img src={ContactIcon} />Contact Us - Creative Buffer</a>
             <p className="text-center mb-0 pb-1 pt-1">2025 Creative Buffer Consultancy Pvt. All rights reserved.</p>

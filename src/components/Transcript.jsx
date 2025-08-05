@@ -245,7 +245,7 @@ function Transcript() {
             <div className="serch-wrap">
               <input
                 type="url"
-                placeholder="Enter your First URL here..."
+                placeholder="Enter your first url here..."
                 value={link}
                 onChange={(e) => {setLink(e.target.value);
                 setSource(prev => ({...prev, firstUrlSource: e.target.value.split(".")[1] === "youtube" ? "youtube" : e.target.value.split(".")[1] === "loom" ? "loom" :
@@ -271,7 +271,7 @@ function Transcript() {
           <div className="serch-wrap">
           <input
             type="url"
-            placeholder="Enter your Second URL here..."
+            placeholder="Enter your second url here..."
             value={linkSecond}
             onChange={(e) => {setLinkSecond(e.target.value);
               setSource(prev => ({...prev, secondUrlSource: e.target.value.split(".")[1] === "youtube" ? "youtube" : e.target.value.split(".")[1] === "loom" ? "loom" :

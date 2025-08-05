@@ -25,18 +25,18 @@ export default function App() {
   return (
     <>
       {/* header starts here */}
-      <motion.header initial={{ opacity: 0, y: 50 }}
+      <header >
+        <div className="container">
+          <motion.div className="logowarp d-flex justify-content-center align-items-center"  initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: .5 }}
             viewport={{ once: true }}>
-        <div className="container">
-          <div className="logowarp d-flex justify-content-center align-items-center">
             <a href="https://creativebuffer.com/" target="_blank" className="logo">
               <img src={logo} />
             </a>
-          </div>
+          </motion.div>
         </div>
-      </motion.header>
+      </header>
       {/* banner starts here */}
       <section className="banner-section p-140" >
         <motion.div className="container"

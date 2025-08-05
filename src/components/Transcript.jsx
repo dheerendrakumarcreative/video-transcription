@@ -258,7 +258,7 @@ function Transcript() {
               <img src={rightarrow} />
             </button>
             </div>
-            <p>Link a YouTube, Loom, or screen recording. We turn it into accurate, structured text.
+            <p>Link a YouTube, Loom,Awesome screenshot or screen recording. We turn it into accurate, structured text.
             </p>
                           {isGenerateError && <p className="error-msg "style={{ color: "red" }}>{generateError}</p>}                       
               {isPlanError && (
@@ -284,7 +284,7 @@ function Transcript() {
           <img src={rightarrow} />
         </button>
         </div>
-          <p>Link a YouTube, Loom, or screen recording. We turn it into accurate, structured text.
+            <p>Link a YouTube, Loom,Awesome screenshot. We turn it into accurate, structured text.
 </p>
           {isGenerateErrorSecond && <p className="error-msg "style={{ color: "red" }}>{generateErrorSecond}</p>}
             {isPlanErrorSecond && (

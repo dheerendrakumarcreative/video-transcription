@@ -897,7 +897,9 @@ div#nav-tabContent {
 
 /* responsive css */
 @media (max-width:1400px) {
-
+.p-140 {
+    padding: 100px 0 100px !important;
+}
 
   img.greennormalarrow {
 

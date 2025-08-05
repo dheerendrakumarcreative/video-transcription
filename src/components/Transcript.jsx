@@ -11,6 +11,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL
 function Transcript() {
   
   const [transcript, setTranscript] = useState("");
+  const [source, setSource] = useState({firstUrlSource: "", secondUrlSource: ""});
   const [plan, setPlan] = useState([]);
   const [link, setLink] = useState("");
   const [loadingGenerate, setLoadingGenerate] = useState(false);
@@ -181,7 +182,7 @@ function Transcript() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ transcript }),
+      body: JSON.stringify({ transcript: transcriptSecond }),
     })
       .then(async (res) => {
         const data = await res.json();
@@ -236,171 +237,180 @@ function Transcript() {
   return (
     <>
       <div className={`urlbox ${status.message?.length > 0 ? 'full-width-url' : ''}`}>
-
-        
-    
-
-          
-
-          {/* <h1>Convert Video To Text</h1> */}
-          {/* <p>Enter a video link to generate a text-based plan of action</p> */}
-          
-          
-            {/* <label htmlFor="link">Video Link</label> */}
-            <div className="search">
-              <div className="serch-wrap">
-                <input
-                  type="url"
-                  placeholder="Paste your video URL here..."
-                  value={link}
-                  onChange={(e) => setLink(e.target.value)}
-                  required
-                />
-                <button onClick={handleGenerate} disabled={loadingGenerate || !link}>
-                  {loadingGenerate ? "Generating..." : "Generate"}
-                <img src={rightarrow} />
-              </button>
-              </div>
-              <p>Try with YouTube, Zoom, Loom, or any video URL</p>
+        {/* <h1>Convert Video To Text</h1> */}
+        {/* <p>Enter a video link to generate a text-based plan of action</p> */} 
+        {/* <label htmlFor="link">Video Link</label> */}
+        <div className="search">
+          <div className="serch-box">
+            <div className="serch-wrap">
+              <input
+                type="url"
+                placeholder="Paste your First video URL here..."
+                value={link}
+                onChange={(e) => {setLink(e.target.value);
+                setSource(prev => ({...prev, firstUrlSource: e.target.value.split(".")[1] === "youtube" ? "youtube" : e.target.value.split(".")[1] === "loom" ? "loom" :
+                   e.target.value.split(".")[1] === "awesomescreenshot" ? "awesome screenshot" : "first url"})); 
+                }}
+                required
+              />
+              <button onClick={handleGenerate} disabled={loadingGenerate || !link}>
+                {loadingGenerate ? "Generating..." : "Generate"}
+              <img src={rightarrow} />
+            </button>
             </div>
-        <div className="genererated-content">
-          <div className="row">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
-              {Array.isArray(status.message) && status.message?.length > 0 && 
-                <div className="status g-div">
-              <h3><img src={statusicon} />Status:</h3> 
-              <ul>
-                {status.message.map(m => m?.trim() ? <li>{m} <img src={checkicon} /> </li>: null)}
-              </ul>
-            </div>
-              }
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
-              {transcript?.length > 0 && (
-              <div className="generate-text g-div" >
-                <h3><img src={generateicon} />Generated Transcript (Streaming):</h3>
-                <p className="transcript">
-                  {transcript}
-                </p>
-                {transcript && (
-                  <button onClick={handlePlan} disabled={loadingGeneratePlan || plan?.length > 0 || !status.isCompleted}>
-                    {loadingGeneratePlan ? "Generating Plan..." : "Generate Plan"}
-                  </button>
-                )}
-              </div>
-            )}
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
-              {plan.length > 0 && (
-              <div className="plan-section g-div">
-                <h3><img src={planicon} />Plan of Action</h3>
-                <ul className="plan-container">
-                  {plan.map((value, index) => (
-                    <li key={index}><img src={checkicon} />{value}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            </div>
-
-          </div>
-        
-
-            {isGenerateError && <p className="error-msg "style={{ color: "red" }}>{generateError}</p>}
-      
-          
-
-
-            {isPlanError && (
-              <p style={{ color: "red" }}>{generatePlanError}</p>
-            )}
-
-          
-          </div>
+            <p>Link a YouTube, Loom, or screen recording. We turn it into accurate, structured text.
+            </p>
+                          {isGenerateError && <p className="error-msg "style={{ color: "red" }}>{generateError}</p>}                       
+              {isPlanError && (
+                <p style={{ color: "red" }}>{generatePlanError}</p>
+              )}
+            
           </div>
 
-
-      <div className={`urlbox ${statusSecond.message?.length > 0 ? 'full-width-url' : ''}`}>
-    
-
-          
-
-          {/* <h1>Convert Video To Text</h1> */}
-          {/* <p>Enter a video link to generate a text-based plan of action</p> */}
-          
-          
-            {/* <label htmlFor="link">Video Link</label> */}
-            <div className="search">
-              <div className="serch-wrap">
-                <input
-                  type="url"
-                  placeholder="Paste your video URL here..."
-                  value={linkSecond}
-                  onChange={(e) => setLinkSecond(e.target.value)}
-                  required
-                />
-                <button onClick={handleGenerateSecond} disabled={loadingGenerateSecond || !linkSecond}>
-                  {loadingGenerateSecond ? "Generating..." : "Generate"}
-                <img src={rightarrow} />
-              </button>
-              </div>
-              <p>Try with YouTube, Zoom, Loom, or any video URL</p>
-            </div>
-        <div className="genererated-content">
-          <div className="row">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
-              {Array.isArray(statusSecond.message) && statusSecond.message?.length > 0 && 
-                <div className="status g-div">
-              <h3><img src={statusicon} />Status:</h3> 
-              <ul>
-                {statusSecond.message.map(m => m?.trim() ? <li>{m} <img src={checkicon} /> </li>: null)}
-              </ul>
-            </div>
-              }
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
-              {transcriptSecond?.length > 0 && (
-              <div className="generate-text g-div" >
-                <h3><img src={generateicon} />Generated Transcript (Streaming):</h3>
-                <p className="transcript">
-                  {transcriptSecond}
-                </p>
-                {transcriptSecond && (
-                  <button onClick={handlePlanSecond} disabled={loadingGeneratePlanSecond || planSecond?.length > 0 || !statusSecond.isCompleted}>
-                    {loadingGeneratePlanSecond ? "Generating Plan..." : "Generate Plan"}
-                  </button>
-                )}
-              </div>
-            )}
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
-              {planSecond.length > 0 && (
-              <div className="plan-section g-div">
-                <h3><img src={planicon} />Plan of Action</h3>
-                <ul className="plan-container">
-                  {planSecond.map((value, index) => (
-                    <li key={index}><img src={checkicon} />{value}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            </div>
-
-          </div>
-        
-
-            {isGenerateErrorSecond && <p className="error-msg "style={{ color: "red" }}>{generateErrorSecond}</p>}
-      
-          
-
-
+          <div className="serch-box">
+          <div className="serch-wrap">
+          <input
+            type="url"
+            placeholder="Paste your Second video URL here..."
+            value={linkSecond}
+            onChange={(e) => {setLinkSecond(e.target.value);
+              setSource(prev => ({...prev, secondUrlSource: e.target.value.split(".")[1] === "youtube" ? "youtube" : e.target.value.split(".")[1] === "loom" ? "loom" :
+                   e.target.value.split(".")[1] === "awesomescreenshot" ? "awesome screenshot" : "second url"})); 
+            }}
+            required
+          />
+          <button onClick={handleGenerateSecond} disabled={loadingGenerateSecond || !linkSecond}>
+            {loadingGenerateSecond ? "Generating..." : "Generate"}
+          <img src={rightarrow} />
+        </button>
+        </div>
+          <p>Link a YouTube, Loom, or screen recording. We turn it into accurate, structured text.
+</p>
+          {isGenerateErrorSecond && <p className="error-msg "style={{ color: "red" }}>{generateErrorSecond}</p>}
             {isPlanErrorSecond && (
-              <p style={{ color: "red" }}>{generatePlanErrorSecond}</p>
-            )}
+                <p style={{ color: "red" }}>{generatePlanErrorSecond}</p>
+              )}  
+          </div>
+        </div>
+       
+      </div>
 
+
+     {(Array.isArray(status.message) && status.message?.length > 0 || Array.isArray(statusSecond.message) && statusSecond.message?.length > 0) && 
+     <>
+     <nav className="url-tabs">
+          <div className="nav nav-tabs" id="nav-tab" role="tablist">
+            <button disabled={!status.message || status.message?.length === 0} className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">{source?.firstUrlSource} </button>
+            <button disabled={!statusSecond.message || statusSecond.message?.length === 0} className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">{source.secondUrlSource}</button>
+          </div>
+      </nav>
+
+
+      <div className="tab-content" id="nav-tabContent">
+        <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <div className="genererated-content">
+            <div className="row">
+              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+                {Array.isArray(status.message) && status.message?.length > 0 && 
+                  <div className="status g-div">
+                <h3><img src={statusicon} />Status:</h3> 
+                  <div class="scrollbar" id="style-4">
+                <ul>
+                  {status.message.map(m => m?.trim() ? <li>{m} <img src={checkicon} /> </li>: null)}
+                </ul>
+                </div>
+              </div>
+                }
+              </div>
+              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+                {transcript?.length > 0 && (
+                <div className="generate-text g-div" >
+                  <h3><img src={generateicon} />Generated Transcript (Streaming):</h3>
+                <div className="scrollbar" id="style-4">
+                  <p className="transcript">
+                    {transcript}
+                  </p>
+                  </div>
+                  {transcript && (
+                    <button onClick={handlePlan} disabled={loadingGeneratePlan || plan?.length > 0 || !status.isCompleted}>
+                      {loadingGeneratePlan ? "Generating Plan..." : "Generate Plan"}
+                    </button>
+                  )}
+                </div>
+              )}
+              </div>
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
+                {plan.length > 0 && (
+                <div className="plan-section g-div">
+                  <h3><img src={planicon} />Plan of Action</h3>
+                    <div class="scrollbar" id="style-4">
+                  <ul className="plan-container">
+                    {plan.map((value, index) => (
+                      <li key={index}><img src={checkicon} />{value}</li>
+                    ))}
+                  </ul>
+                  </div>
+                </div>
+              )}
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div className="genererated-content">
+            <div className="row">
+              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+                {Array.isArray(statusSecond.message) && statusSecond.message?.length > 0 && 
+                  <div className="status g-div">
+                <h3><img src={statusicon} />Status:</h3> 
+                <div class="scrollbar" id="style-4">
+                <ul>
+                  {statusSecond.message.map(m => m?.trim() ? <li>{m} <img src={checkicon} /> </li>: null)}
+                </ul>
+                </div>
+              </div>
+                }
+              </div>
+              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+                {transcriptSecond?.length > 0 && (
+                <div className="generate-text g-div" >
+                  <h3><img src={generateicon} />Generated Transcript (Streaming):</h3>
+                <div class="scrollbar" id="style-4">
+                  <p className="transcript">
+                    {transcriptSecond}
+                  </p>
+                  </div>
+                  {transcriptSecond && (
+                    <button onClick={handlePlanSecond} disabled={loadingGeneratePlanSecond || planSecond?.length > 0 || !statusSecond.isCompleted}>
+                      {loadingGeneratePlanSecond ? "Generating Plan..." : "Generate Plan"}
+                    </button>
+                  )}
+                </div>
+              )}
+              </div>
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
+                {planSecond.length > 0 && (
+                <div className="plan-section g-div">
+                  <h3><img src={planicon} />Plan of Action</h3>
+                    <div class="scrollbar" id="style-4">
+                  <ul className="plan-container">
+                    {planSecond.map((value, index) => (
+                      <li key={index}><img src={checkicon} />{value}</li>
+                    ))}
+                  </ul>
+                  </div>
+                </div>
+              )}
+              </div>
+          </div>
           
           </div>
-          </div>
+          </div> 
+      </div>
+      </>
+      }
+
     </>
       
   );

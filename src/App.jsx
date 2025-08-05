@@ -137,18 +137,20 @@ export default function App() {
       {/* how its works starts here     */}
       <section className="howitswork-section grey-bg p-80">
         <div className="container">
-          <motion.div className="text-center subheading" whileInView={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 50 }}
-            
+          <motion.div className="text-center subheading" 
+          whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50 }}            
             transition={{ duration: 0.4, delay:.5 }}
             viewport={{ once: true }}>
             <h2>How It Works</h2>
             <p>Three simple steps to transform your videos into actionable insights</p>
           </motion.div>
-          <motion.div className="row relative" 
+          <motion.div 
            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay:.8 }}>
+            transition={{ duration: 0.4, delay:.8 }}
+             viewport={{ once: true, amount: 0.5 }}>
+              <div className="row relative">
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16 relative">
               {/* <div className="steptext">01</div> */}
               <div className="step">
@@ -181,7 +183,8 @@ export default function App() {
                 <p>Make quick edits, share with your team, or export to Notion, Trello, ClickUp, or your PM tool.</p>
               </div>
             </div>
-          </motion.div >
+            </div>
+          </motion.div>
         </div>
       </section>
       {/* faq starts here     */}

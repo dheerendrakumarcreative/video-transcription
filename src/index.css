@@ -50,7 +50,9 @@ header a {
   margin-bottom: 0;
   display: block;
 }
-
+.logowarp {    
+    width: 100%;
+}
 header a img {
   height: 100%;
   width: 100%;

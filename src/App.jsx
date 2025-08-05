@@ -30,10 +30,11 @@ export default function App() {
             transition={{ duration: 0.4, delay: .5 }}
             viewport={{ once: true }}>
         <div className="container">
-          <a href="https://creativebuffer.com/" target="_blank" className="logo">
-            <img src={logo} />
-          </a>
-
+          <div className="logowarp d-flex justify-content-center align-items-center">
+            <a href="https://creativebuffer.com/" target="_blank" className="logo">
+              <img src={logo} />
+            </a>
+          </div>
         </div>
       </motion.header>
       {/* banner starts here */}
@@ -64,7 +65,7 @@ export default function App() {
         <div className="container" >
           <motion.div className="text-center subheading" initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: .5 }}
+            transition={{ duration: 0.4, delay: .3 }}
             viewport={{ once: true }}>
             <h2>Key Features</h2>
             <p>Transform your video content into actionable insights with our powerful AI-driven tools</p>
@@ -75,7 +76,7 @@ export default function App() {
               <motion.div className="keyf-card" whileInView={{ opacity: 1, y: 0 }}
                  initial={{ opacity: 0, y: 50 }}
               
-                transition={{ duration: 0.4, delay: .5 }}
+                transition={{ duration: 0.4, delay: .6 }}
                 viewport={{ once: true }}>
                 <figure>
                   <img src={autoTranscribe} />

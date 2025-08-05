@@ -48,7 +48,10 @@ header a {
   width: 260px;
   height: 73px;
   margin-bottom: 0;
-  display: block;
+  display: flex
+;
+    align-items: center;
+    justify-content: center;
 }
 .logowarp {    
     width: 100%;
@@ -943,8 +946,14 @@ div#nav-tabContent {
 }
 
 @media (max-width:991px) {
+  header {
+    padding: 5px 0;
+  }
   .status.g-div {
     margin-top: 0px !important;
+  }
+.banner-section {
+    margin-top: 83px;
   }
 
   .urlbox .search {

@@ -65,7 +65,7 @@ header a img {
   /* background: #eaf1f3; */
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(src/assets/images/banner-bg01.jpg);
+  background-image: url('@/assets/images/banner-bg01.jpg');
 }
 
 .banner-section h1 {
@@ -595,7 +595,7 @@ section#generate-section::after {
   right: 0;
   content: "";
   height: 300px;
-  background-image: url(src/assets/images/url-sec.svg);
+  background-image: url('@/assets/images/url-sec.svg');
   background-repeat: no-repeat;
   width: 300px;
   background-size: contain;
@@ -607,7 +607,7 @@ section#generate-section::before {
   left: 0px;
   content: "";
   height: 300px;
-  background-image: url(src/assets/images/url-sec.svg);
+  background-image: url('@/assets/images/url-sec.svg');
   background-repeat: no-repeat;
   width: 300px;
   background-size: contain;
@@ -624,7 +624,7 @@ section#generate-section .container::after {
   left: 0px;
   content: "";
   height: 300px;
-  background-image: url(src/assets/images/diamond.svg);
+  background-image: url('@/assets/images/diamond.svg');
   background-repeat: no-repeat;
   width: 300px;
   background-size: contain;
@@ -637,7 +637,7 @@ section#generate-section .container::before {
   right: 0px;
   content: "";
   height: 200px;
-  background-image: url(src/assets/images/diamond-sm.svg);
+  background-image: url('@/assets/images/diamond-sm.svg');
   background-repeat: no-repeat;
   width: 200px;
   background-size: contain;

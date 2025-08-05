@@ -25,7 +25,7 @@ html {
 }
 
 .p-140 {
-  padding: 223px 0 220px 0 !important;
+  padding: 223px 10px 220px !important;
 }
 
 .grey-bg {
@@ -898,7 +898,7 @@ div#nav-tabContent {
 /* responsive css */
 @media (max-width:1450px) {
 .p-140 {
-    padding: 100px 0 100px !important;
+    padding: 100px 10px 100px !important;
 }}
 @media (max-width:1400px) {
 
@@ -937,7 +937,7 @@ div#nav-tabContent {
 
 @media (max-width:1150px) {
   .p-140 {
-    padding: 40px 0 60px 0 !important;
+    padding: 40px 10px 60px !important;
   }
 }
 
@@ -1063,7 +1063,7 @@ div#nav-tabContent {
   }
 
   .p-140 {
-    padding: 60px 0 60px 0 !important;
+    padding: 60px 10px 60px  !important;
   }
 
   .banner-cta-btn a,

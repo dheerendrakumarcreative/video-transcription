@@ -41,7 +41,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999999;
+  z-index: 99;
 }
 
 header a {
@@ -768,7 +768,7 @@ img.greennormalarrow {
   position: absolute;
   top: 60px;
   right: -160px;
-  z-index: 99999;
+  z-index: 9;
 }
 
 .greenuparrow {
@@ -777,7 +777,7 @@ img.greennormalarrow {
   position: absolute;
   top: 0;
   right: -170px;
-  z-index: 99999;
+  z-index: 9;
   width: 333px;
 }
 

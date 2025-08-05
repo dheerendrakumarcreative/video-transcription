@@ -274,7 +274,7 @@ export default function App() {
           <motion.div className="coptyRight d-flex justify-content-between align-items-center" whileInView={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 50 }}
           
-            transition={{ duration: 0.4, delay:1 }}>
+            transition={{ duration: 0.4, delay:.5 }}>
             <a href="https://creativebuffer.com/contact-us/" target="_blank"> <img src={ContactIcon} />Contact Us - Creative Buffer</a>
             <p className="text-center mb-0 pb-1 pt-1">2025 Creative Buffer Consultancy Pvt. All rights reserved.</p>
           </motion.div>

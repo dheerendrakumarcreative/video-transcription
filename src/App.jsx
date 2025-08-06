@@ -83,7 +83,15 @@ export default function App() {
   }
 }
 
-console.log(isValidURL(link.linkOne))
+const handleInputScroll = () => { 
+  setShow((pre) => ({...pre, showInpupts: true}))
+  console.log("width",window.innerWidth)
+  if(window.innerWidth < 1024)
+  setTimeout(() => {
+    inputRef?.current?.scrollIntoView({ behavior: 'smooth' }); 
+   }, 700); 
+}
+
   return (
     <>
  
@@ -102,7 +110,7 @@ console.log(isValidURL(link.linkOne))
             <motion.p  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.6, delay: .6 }} className="subheadng">Effortlessly convert YouTube, Zoom, Loom, and screen recordings into searchable transcripts, smart summaries, and actionable to-do lists.</motion.p>
 
             <motion.div  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: .8 }} className="banner-cta-btn">
-              <a href="#" className="tryfree" onClick={() => { inputRef?.current?.scrollIntoView({ behavior: 'smooth' }); setShow((pre) => ({...pre, showInpupts: true}))}}>Try it Free</a>
+              <a href="#" className="tryfree" onClick={handleInputScroll}>Try it Free</a>
               <button type="button" className="watchdemo" data-bs-toggle="modal" data-bs-target="#watchdemo" ><img src={play} />Watch Demo</button>
              </motion.div>
 

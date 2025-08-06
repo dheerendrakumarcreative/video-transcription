@@ -14,6 +14,7 @@ import GreenArrowdown from '@/assets/images/down.svg';
 import Processing from '@/assets/images/processing.png';
 import Generate from '@/assets/images/generate.png';
 import plan from '@/assets/images/plan.png';
+import tryitfree from '@/assets/images/tryitfree.svg';
  
 
 import { motion } from "motion/react"
@@ -105,7 +106,7 @@ const handleInputScroll = () => {
           <div className="text-center">        
             <motion.div  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, delay: .2 }}>
               <a href="https://creativebuffer.com/" target="_blank" className="logo" >
-                <img src={logo} />
+                <img src={logo} />                 
               </a>
             </motion.div>
             <motion.h1  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.6 }} transition={{ duration: 0.6, delay: .4 }}>From Video to <span>Victory</span>:<br />Turn Meetings Into Clear Action Plans</motion.h1>
@@ -115,15 +116,14 @@ const handleInputScroll = () => {
               <a href="#" className="tryfree" onClick={handleInputScroll}>Try it Free</a>
               <button type="button" className="watchdemo" data-bs-toggle="modal" data-bs-target="#watchdemo" ><img src={play} />Watch Demo</button>
              </motion.div>
+               <motion.div  className="tryitfree" variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.8, delay: 1 }}>            
+               <img src={tryitfree} />
+              </motion.div>
 
             <div className="urlbox ">
               {/* { show.showInpupts &&  */}
-                <motion.div className="search" initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.4, delay: .5, ease: "easeOut" }}
-            ref={inputRef}
-            style={{scrollMarginTop: '100px'}}
-            viewport={{ once: true, amount: 0.5 }}>
+              
+             <motion.div  className="search" variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: 1 }}>
                   <div className="serch-box">
                     <div className="serch-wrap">
                       <input placeholder="Enter your first url here..." required="" type="url" onChange={(e) => setLink((pre) => ({...pre, linkOne: e.target.value}))} value={link.linkOne}></input>

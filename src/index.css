@@ -144,9 +144,9 @@ html {
   width: 20px;
   margin-right: 10px;
 }
-section.banner-section .urlbox .search  {
+/* section.banner-section .urlbox .search  {
     margin-top: 50px;
-}
+} */
 .urlbox {
   position: relative;
   z-index: 1;
@@ -1255,4 +1255,11 @@ border-radius: 5px;
     height: 22px;
     width: 22px;
     object-fit: contain;
+}
+.tryitfree {
+    margin: 10px 0 10px;
+}
+.tryitfree img {
+    height: 100px;
+    width: 100px;
 }

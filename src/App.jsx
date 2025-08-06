@@ -117,7 +117,7 @@ const handleInputScroll = () => {
              </motion.div>
 
             <div className="urlbox ">
-              { show.showInpupts && 
+              {/* { show.showInpupts &&  */}
                 <motion.div className="search" initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, delay: .5, ease: "easeOut" }}
@@ -149,7 +149,7 @@ const handleInputScroll = () => {
                     <p>Link a Zoom, YouTube, Loom, or screen recording. We turn it into accurate, structured text.</p>
                   </div>
                 </motion.div>
-              }
+              {/* } */}
               {(show.showDataOne || show.showDataSecond) &&
                 <motion.div ref={tabRef}  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, delay: .1 }} className="generate-tab-wrap">
                   <nav className="url-tabs" id="url_tabs">

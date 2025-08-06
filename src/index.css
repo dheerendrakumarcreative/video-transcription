@@ -125,6 +125,7 @@ html {
   color: #fff;
   background: #64ae21;
   border-color: #64ae21;
+  pointer-events: none;
 }
 
 .banner-cta-btn .watchdemo {
@@ -144,7 +145,7 @@ html {
   margin-right: 10px;
 }
 section.banner-section .urlbox .search  {
-    margin-top: 80px;
+    margin-top: 50px;
 }
 .urlbox {
   position: relative;

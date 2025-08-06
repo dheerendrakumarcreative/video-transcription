@@ -123,7 +123,7 @@ const handleInputScroll = () => {
             <div className="urlbox ">
               {/* { show.showInpupts &&  */}
               
-             <motion.div  className="search" variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: 1 }}>
+             <motion.div  className="search" variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: .5 }}>
                   <div className="serch-box">
                     <div className="serch-wrap">
                       <input placeholder="Enter your first url here..." required="" type="url" onChange={(e) => setLink((pre) => ({...pre, linkOne: e.target.value}))} value={link.linkOne}></input>

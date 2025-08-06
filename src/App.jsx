@@ -88,7 +88,7 @@ const handleInputScroll = () => {
   console.log("width",window.innerWidth)
   if(window.innerWidth < 1024)
   setTimeout(() => {
-    inputRef?.current?.scrollIntoView({ behavior: 'smooth' }); 
+   inputRef?.current?.scrollIntoView({ behavior: 'smooth' }); 
    }, 700); 
 }
 
@@ -120,6 +120,7 @@ const handleInputScroll = () => {
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, delay: .5, ease: "easeOut" }}
             ref={inputRef}
+            style={{scrollMarginTop: '100px'}}
             viewport={{ once: true, amount: 0.5 }}>
                   <div className="serch-box">
                     <div className="serch-wrap">

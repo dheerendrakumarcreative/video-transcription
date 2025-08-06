@@ -109,7 +109,7 @@ console.log(isValidURL(link.linkOne))
               { show.showInpupts && 
                 <motion.div className="search" initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.4, delay: .5, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.5 }}>
                   <div className="serch-box">
                     <div className="serch-wrap">

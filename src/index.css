@@ -54,7 +54,11 @@ html {
 
 /* baner section css */
 
-.banner-section,
+.banner-section {  
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('@/assets/images/banner-bg01.jpg');
+}
 .banner-section.b-expanded {
     background-repeat: repeat;
     background-size: contain;

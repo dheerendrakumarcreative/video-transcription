@@ -258,7 +258,7 @@ function Transcript() {
               <img src={rightarrow} />
             </button>
             </div>
-            <p>Link a YouTube, Loom, Awesome screenshot or screen recording. We turn it into accurate, structured text.
+            <p>Link a Zoom, YouTube, Loom, or screen recording. We turn it into accurate, structured text.
             </p>
                           {isGenerateError && <p className="error-msg "style={{ color: "red" }}>{generateError}</p>}                       
               {isPlanError && (
@@ -284,7 +284,7 @@ function Transcript() {
           <img src={rightarrow} />
         </button>
         </div>
-            <p>Link a YouTube, Loom, Awesome screenshot or screen recording. We turn it into accurate, structured text.
+            <p>Link a Zoom, YouTube, Loom, or screen recording. We turn it into accurate, structured text.
             </p>
           {isGenerateErrorSecond && <p className="error-msg "style={{ color: "red" }}>{generateErrorSecond}</p>}
             {isPlanErrorSecond && (
@@ -308,13 +308,13 @@ function Transcript() {
 
       <div className="tab-content" id="nav-tabContent">
         <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-  <div className="genererated-content">
+          <div className="genererated-content">
             <div className="row">
               <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
                 {Array.isArray(status.message) && status.message?.length > 0 && 
                   <div className="status g-div">
                 <h3><img src={statusicon} />Status:</h3> 
-                  <div class="scrollbar" id="style-4">
+                  <div className="scrollbar" id="style-4">
                 <ul>
                   {status.message.map(m => m?.trim() ? <li>{m} <img src={checkicon} /> </li>: null)}
                 </ul>
@@ -343,7 +343,7 @@ function Transcript() {
                 {plan.length > 0 && (
                 <div className="plan-section g-div">
                   <h3><img src={planicon} />Plan of Action</h3>
-                    <div class="scrollbar" id="style-4">
+                    <div className="scrollbar" id="style-4">
                   <ul className="plan-container">
                     {plan.map((value, index) => (
                       <li key={index}><img src={checkicon} />{value}</li>
@@ -364,7 +364,7 @@ function Transcript() {
                 {Array.isArray(statusSecond.message) && statusSecond.message?.length > 0 && 
                   <div className="status g-div">
                 <h3><img src={statusicon} />Status:</h3> 
-                <div class="scrollbar" id="style-4">
+                <div className="scrollbar" id="style-4">
                 <ul>
                   {statusSecond.message.map(m => m?.trim() ? <li>{m} <img src={checkicon} /> </li>: null)}
                 </ul>
@@ -376,7 +376,7 @@ function Transcript() {
                 {transcriptSecond?.length > 0 && (
                 <div className="generate-text g-div" >
                   <h3><img src={generateicon} />Generated Transcript (Streaming):</h3>
-                <div class="scrollbar" id="style-4">
+                <div className="scrollbar" id="style-4">
                   <p className="transcript">
                     {transcriptSecond}
                   </p>
@@ -393,7 +393,7 @@ function Transcript() {
                 {planSecond.length > 0 && (
                 <div className="plan-section g-div">
                   <h3><img src={planicon} />Plan of Action</h3>
-                    <div class="scrollbar" id="style-4">
+                    <div className="scrollbar" id="style-4">
                   <ul className="plan-container">
                     {planSecond.map((value, index) => (
                       <li key={index}><img src={checkicon} />{value}</li>
@@ -405,8 +405,8 @@ function Transcript() {
               </div>
           </div>
           
-          </div>
-          </div> 
+              </div>
+        </div> 
       </div>
       </>
       }

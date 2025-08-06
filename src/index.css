@@ -1039,6 +1039,13 @@ div#nav-tabContent {
 }
 
 @media (max-width:860px) {
+  .footer-section h3 {
+    font-size: 20px!important;
+    line-height: 28px!important;
+    margin: 0 30px;
+    padding-bottom: 20px;
+    /* margin-bottom: 10px; */
+}
   .genererated-content button {
     margin-bottom: 15px;
   }

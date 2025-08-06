@@ -17,11 +17,12 @@ import plan from '@/assets/images/plan.png';
  
 
 import { motion } from "motion/react"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { li } from "motion/react-client";
 
 
 export default function App() {
+  const inputRef = useRef(null);
   const [show, setShow] = useState({
       showInpupts: false,
       showDataOne: false,
@@ -101,7 +102,7 @@ console.log(isValidURL(link.linkOne))
             <motion.p  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.6, delay: .6 }} className="subheadng">Effortlessly convert YouTube, Zoom, Loom, and screen recordings into searchable transcripts, smart summaries, and actionable to-do lists.</motion.p>
 
             <motion.div  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: .8 }} className="banner-cta-btn">
-              <a href="#generate-section" className="tryfree" onClick={() => setShow((pre) => ({...pre, showInpupts: true}))}>Try it Free</a>
+              <a href="#" className="tryfree" onClick={() => { inputRef?.current?.scrollIntoView({ behavior: 'smooth' }); setShow((pre) => ({...pre, showInpupts: true}))}}>Try it Free</a>
               <button type="button" className="watchdemo" data-bs-toggle="modal" data-bs-target="#watchdemo" ><img src={play} />Watch Demo</button>
              </motion.div>
 
@@ -110,6 +111,7 @@ console.log(isValidURL(link.linkOne))
                 <motion.div className="search" initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, delay: .5, ease: "easeOut" }}
+            ref={inputRef}
             viewport={{ once: true, amount: 0.5 }}>
                   <div className="serch-box">
                     <div className="serch-wrap">

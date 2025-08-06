@@ -22,6 +22,8 @@ import { li } from "motion/react-client";
 
 
 export default function App() {
+
+  const tabRef = useRef(null)
   const inputRef = useRef(null);
   const [show, setShow] = useState({
       showInpupts: false,
@@ -125,7 +127,13 @@ const handleInputScroll = () => {
                   <div className="serch-box">
                     <div className="serch-wrap">
                       <input placeholder="Enter your first url here..." required="" type="url" onChange={(e) => setLink((pre) => ({...pre, linkOne: e.target.value}))} value={link.linkOne}></input>
-                      <button disabled={!isValidURL(link.linkOne)} onClick={() => { setShow(pre => ({...pre, showDataOne: true, showDataSecond: false}))}}>Generate <img src="data:image/svg+xml,%3csvg%20
+                      <button disabled={!isValidURL(link.linkOne)} onClick={() => { 
+
+                        setShow(pre => ({...pre, showDataOne: true, showDataSecond: false}))
+                        setTimeout(() => {
+                          tabRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 500)
+                      }}>Generate <img src="data:image/svg+xml,%3csvg%20
                             xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20class='lucide%20lucide-arrow-right%20w-5%20h-5'%3e%3cpath%20d='M5%2012h14'%3e%3c/path%3e%3cpath%20d='m12%205%207%207-7%207'%3e%3c/path%3e%3c/svg%3e"></img>
                       </button>
                     </div>
@@ -143,7 +151,7 @@ const handleInputScroll = () => {
                 </motion.div>
               }
               {(show.showDataOne || show.showDataSecond) &&
-                <motion.div  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, delay: .1 }} className="generate-tab-wrap">
+                <motion.div ref={tabRef}  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, delay: .1 }} className="generate-tab-wrap">
                   <nav className="url-tabs" id="url_tabs">
                   <div className="nav nav-tabs" id="nav-tab" role="tablist">
                     <button disabled={!link.linkOne?.length} className={`nav-link ${show.showDataOne ? "active": ""}`} onClick={() => setShow(pre => ({...pre, showDataSecond: false, showDataOne: true}))}> First Tab</button>

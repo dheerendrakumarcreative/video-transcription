@@ -107,10 +107,7 @@ console.log(isValidURL(link.linkOne))
 
             <div className="urlbox ">
               { show.showInpupts && 
-                <motion.div className="search" initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.5 }}>
+                <div className="search">
                   <div className="serch-box">
                     <div className="serch-wrap">
                       <input placeholder="Enter your first url here..." required="" type="url" onChange={(e) => setLink((pre) => ({...pre, linkOne: e.target.value}))} value={link.linkOne}></input>
@@ -129,7 +126,7 @@ console.log(isValidURL(link.linkOne))
                     </div>
                     <p>Link a Zoom, YouTube, Loom, or screen recording. We turn it into accurate, structured text.</p>
                   </div>
-                </motion.div>
+                </div>
               }
               {(show.showDataOne || show.showDataSecond) &&
                 <motion.div  variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, delay: .1 }} className="generate-tab-wrap">

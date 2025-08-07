@@ -15,6 +15,7 @@ import Processing from '@/assets/images/processing.png';
 import Generate from '@/assets/images/generate.png';
 import plan from '@/assets/images/plan.png';
 import tryitfree from '@/assets/images/tryitfree.svg';
+import faqbg from '@/assets/images/faq-bg.jpg'; 
  
 
 import { motion } from "motion/react"
@@ -47,7 +48,7 @@ export default function App() {
     const timer = setInterval(() => {
       setProgressOne(prev => {
         if (prev < 100) {
-          return prev + 2;
+          return prev + 10;
         } else {
           clearInterval(timer);
           return 100;
@@ -120,7 +121,7 @@ const handleInputScroll = () => {
                <img src={tryitfree} />
               </motion.div>
 
-            <div className="urlbox ">
+            <div className="urlbox d-none ">
               {/* { show.showInpupts &&  */}
               
              <motion.div  className="search" variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: .5 }}>
@@ -289,6 +290,10 @@ const handleInputScroll = () => {
                 </motion.div>
               }
             </div>
+            <motion.div  className="search" variants={fadeInUp} initial="hidden" whileInView="visible"viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: 1 }}>
+            <Transcript />
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -350,7 +355,7 @@ const handleInputScroll = () => {
         </div>
       </section>
       {/* generate url starts here     */}
-       {/* <section id="generate-section" className="p-80">
+       <section id="generate-section" className="p-80 d-none">
         <div className="container" >
           <motion.div className="text-center subheading" whileInView={{ opacity: 1, y: 0 }}
              initial={{ opacity: 0, y: 50 }}
@@ -368,7 +373,7 @@ const handleInputScroll = () => {
 
           </motion.div>
         </div>
-      </section>  */}
+      </section>  
       {/* how its works starts here     */}
       <section className="howitswork-section grey-bg p-80">
         <div className="container">
@@ -515,10 +520,6 @@ const handleInputScroll = () => {
           </motion.div>
         </div>
       </footer>
-
-
-
-
       <div className="modal fade" id="watchdemo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">

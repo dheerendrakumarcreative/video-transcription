@@ -4,6 +4,10 @@ import statusicon from '@/assets/images/status-icon.svg';
 import generateicon from '@/assets/images/generate-icon.svg';
 import planicon from '@/assets/images/plan-icon.svg';
 import checkicon from '@/assets/images/checkicon.svg';
+import Processing from '@/assets/images/processing.png';
+import Generate from '@/assets/images/generate.png';
+import plan from '@/assets/images/plan.png';
+import copyplan from '@/assets/images/copy.png';
 
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
@@ -21,6 +25,9 @@ function Transcript() {
   const [generateError, setGenerateError] = useState("");
   const [generatePlanError, setGeneratePlanError] = useState("");
   const [status, setStatus] = useState({ message: [], isCompleted: false });
+  const [progress, setProgress] = useState(0);
+  const [progressSecond, setProgressSecond ] = useState(0)
+  const [copyMessage, setCopyMessage] = useState({textCopyMessageOne: false, textCopyMessageSecond: false})
 
 
   const [transcriptSecond, setTranscriptSecond] = useState("");
@@ -33,9 +40,10 @@ function Transcript() {
   const [generateErrorSecond, setGenerateErrorSecond] = useState("");
   const [generatePlanErrorSecond, setGeneratePlanErrorSecond] = useState("");
   const [statusSecond, setStatusSecond] = useState({ message: [], isCompleted: false });
-
+  console.log("pro", progress)
   const handleGenerate = () => {
     setTranscript("");
+    setProgress(0)
     setPlan([]);
     setIsGenerateError(false);
     setIsPlanError(false);
@@ -68,8 +76,9 @@ function Transcript() {
           if (done) break;
           
           const chunk = decoder.decode(value, { stream: true });
-          console.log("Chunk:", chunk);
           if(!isTranscriptStarted) {
+            const proStr = chunk.split(",")?.[1]?.trim()
+            setProgress(parseInt(proStr))
             setStatus(pre => ({...pre, message: [...pre.message, chunk ] }))
           }
           // Start streaming after TRANSCRIPT_START
@@ -104,6 +113,7 @@ function Transcript() {
       });
   };
   const handleGenerateSecond = () => {
+    setProgressSecond(0);
     setTranscriptSecond("");
     setPlanSecond([]);
     setIsGenerateErrorSecond(false);
@@ -137,8 +147,9 @@ function Transcript() {
           if (done) break;
           
           const chunk = decoder.decode(value, { stream: true });
-          console.log("Chunk:", chunk);
           if(!isTranscriptStarted) {
+            const proStr = chunk.split(",")?.[1]?.trim()
+            setProgressSecond(parseInt(proStr))
             setStatusSecond(pre => ({...pre, message: [...pre.message, chunk ] }))
           }
           // Start streaming after TRANSCRIPT_START
@@ -234,8 +245,21 @@ function Transcript() {
       });
   };
 
+  const handleCopyAll = async (arr, key) => {
+
+    const textToCopy = arr.join('\n')
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopyMessage(pre => ({...pre, [key]: true}));
+      setTimeout(() => setCopyMessage(pre => ({...pre, [key]: false})), 800)
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
   return (
     <>
+    
       <div className={`urlbox ${status.message?.length > 0 ? 'full-width-url' : ''}`}>
         {/* <h1>Convert Video To Text</h1> */}
         {/* <p>Enter a video link to generate a text-based plan of action</p> */} 
@@ -310,7 +334,7 @@ function Transcript() {
         <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <div className="genererated-content">
             <div className="row">
-              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+              {/* <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
                 {Array.isArray(status.message) && status.message?.length > 0 && 
                   <div className="status g-div">
                 <h3><img src={statusicon} />Status:</h3> 
@@ -321,8 +345,20 @@ function Transcript() {
                 </div>
               </div>
                 }
+              </div> */}
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16 pro-1">
+                <div className="progress g-div">            
+                    <h3><img src={Processing} />Processing:</h3>
+                    <div className="progress-container">
+                      <div className="progress-bar-wtap">
+                        <div className="progress-bar" style={{ width: `${progress}%` }}>
+                          {progress}%
+                        </div>
+                      </div>
+                    </div>     
+                </div>            
               </div>
-              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
                 {transcript?.length > 0 && (
                 <div className="generate-text g-div" >
                   <h3><img src={generateicon} />Generated Transcript (Streaming):</h3>
@@ -350,6 +386,7 @@ function Transcript() {
                     ))}
                   </ul>
                   </div>
+                    <button onClick={() => { handleCopyAll(plan, "textCopyMessageOne")}}> <img src={copyplan} />{copyMessage.textCopyMessageOne ? "Copied" :"Copy Plan of Action"}</button>
                 </div>
               )}
               </div>
@@ -360,7 +397,7 @@ function Transcript() {
         <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
               <div className="genererated-content">
             <div className="row">
-              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+              {/* <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
                 {Array.isArray(statusSecond.message) && statusSecond.message?.length > 0 && 
                   <div className="status g-div">
                 <h3><img src={statusicon} />Status:</h3> 
@@ -371,8 +408,20 @@ function Transcript() {
                 </div>
               </div>
                 }
+              </div> */}
+               <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16 pro-2">
+                <div className="progress g-div">            
+                    <h3><img src={Processing} />Processing:</h3>
+                    <div className="progress-container">
+                      <div className="progress-bar-wtap">
+                        <div className="progress-bar" style={{ width: `${progressSecond}%` }}>
+                          {progressSecond}%
+                        </div>
+                      </div>
+                    </div>     
+                </div>            
               </div>
-              <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
                 {transcriptSecond?.length > 0 && (
                 <div className="generate-text g-div" >
                   <h3><img src={generateicon} />Generated Transcript (Streaming):</h3>
@@ -399,7 +448,7 @@ function Transcript() {
                       <li key={index}><img src={checkicon} />{value}</li>
                     ))}
                   </ul>
-                  </div>
+                  </div> <button onClick={() => { handleCopyAll(planSecond, "textCopyMessageSecond")}}><img src={copyplan} />{copyMessage.textCopyMessageSecond ? "Copied" :"Copy Plan of Action"}</button>                  
                 </div>
               )}
               </div>
@@ -410,6 +459,8 @@ function Transcript() {
       </div>
       </>
       }
+    
+     
 
     </>
       

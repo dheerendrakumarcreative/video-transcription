@@ -754,7 +754,7 @@ section#generate-section {
 .plan-section.g-div ul li img {
   margin-right: 15px;
 }
-
+.plan-section button,
 .genererated-content button {
   font-family: 'Poppins', sans-serif;
   border: 2px solid #64ae21;
@@ -884,6 +884,7 @@ div#nav-tabContent {
 /* scroll bar css */
 .scrollbar {
   max-height: 300px;
+ 
   width: 100%;
   overflow-y: scroll;
 
@@ -1277,7 +1278,7 @@ section.keyfeature-section .row {
 }
 .progress-bar-wtap {
     width: 100%;
-    background: #ebf5ff;
+    background: #dae4ef;
     height: 18px;border-radius: 5px;
 }
 .progress.g-div {
@@ -1357,4 +1358,15 @@ section.keyfeature-section .row {
     width: 100%;
     max-width: 90%;
     margin: 0 auto;
+}
+section.faq-section
+{
+    background-image: url('@/assets/images/faq-bg.jpg');
+  background-repeat: no-repeat;
+    background-position: center center;
+  background-size: cover;
+}
+.plan-section button img {
+    height: 25px;
+    margin-right: 5px;
 }

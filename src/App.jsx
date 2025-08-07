@@ -350,7 +350,7 @@ const handleInputScroll = () => {
         </div>
       </section>
       {/* generate url starts here     */}
-       <section id="generate-section" className="p-80">
+       {/* <section id="generate-section" className="p-80">
         <div className="container" >
           <motion.div className="text-center subheading" whileInView={{ opacity: 1, y: 0 }}
              initial={{ opacity: 0, y: 50 }}
@@ -368,7 +368,7 @@ const handleInputScroll = () => {
 
           </motion.div>
         </div>
-      </section> 
+      </section>  */}
       {/* how its works starts here     */}
       <section className="howitswork-section grey-bg p-80">
         <div className="container">

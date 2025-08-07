@@ -920,7 +920,9 @@ div#nav-tabContent {
     padding: 100px 10px 100px !important;
 }}
 @media (max-width:1400px) {
-
+section.keyfeature-section .row {  
+    max-width: 100%!important;    
+}
   img.greennormalarrow {
 
     right: -130px !important;
@@ -941,6 +943,18 @@ div#nav-tabContent {
 }
 
 @media (max-width:1199px) {
+  .keyf-card {
+    padding: 32px!important;
+    
+}
+.keyf-card figure {     
+    margin-top: -32px!important;
+    margin-left: -32px!important;     
+}
+.p-16
+{
+  padding: 0 12px!important;
+}
   .greenuparrow {
     right: -100px !important;
     width: 65% !important;
@@ -974,7 +988,10 @@ div#nav-tabContent {
   .status.g-div {
     margin-top: 0px !important;
   }
-
+.keyf-card
+{
+  height: auto!important;
+}
   
 
   .urlbox .search {

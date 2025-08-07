@@ -53,16 +53,35 @@ html {
 }
 
 /* baner section css */
-
-.banner-section {  
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url('@/assets/images/banner-bg01.jpg');
+.banner-section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/src/assets/images/banner-bg01.jpg);
+    position: relative;
 }
 .banner-section.b-expanded {
     background-repeat: repeat;
+    position: relative;
     background-size: contain;
     background-image: url(/src/assets/images/banner-bg01.jpg);
+}
+.banner-section::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, .6);
+    content: '';
+}
+ 
+
+.banner-section .text-center
+{
+      z-index: 9;
+    position: relative;
 }
 .banner-section h1 {
   font-size: 60px;
@@ -188,7 +207,7 @@ html {
   height: 60px;
   border-radius: 16px;
   border: 2px solid #ffffff;
-  padding: 16px 205px 16px 24px;
+  padding: 16px 180px 16px 24px;
   width: 100%;
   max-width: 100%;
   box-shadow: 0 4px 15px rgba(0, 0, 0, .1);
@@ -339,15 +358,15 @@ html {
 }
 
 .bg-blue {
-  background: #3b82f6;
+  background:#3B71CA;
 }
 
 .bg-green {
-  background: #64ae21;
+  background: #14A44D;
 }
 
 .bg-purple {
-  background: #a855f7;
+  background: #A755F6;
 }
 
 .step h3 {
@@ -1269,4 +1288,55 @@ border-radius: 5px;
 .tryitfree img {
     height: 100px;
     width: 100px;
+}
+
+.keyf-card figure {
+    height: 100px;
+    width: 100%;
+    max-width: 100px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(100, 174, 33, 0.1); */
+    background: #acdcc1;
+    border-radius: 30px;
+    margin-bottom: 24px;
+    margin-top: -48px;
+    margin-left: -48px;
+    border-top-left-radius: 0;
+}
+.keyf-card {
+    padding:48px;
+    border-radius: 30px;
+    /* box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px; */
+   box-shadow: none!important;
+   border: none!important;
+    height: 100%;
+    border-top-left-radius: 0;
+ 
+}
+.keyf-card.k-one {
+    background: #e3eaf5 !important;
+}
+.keyf-card.k-two {
+  background: #dfefe8 !important;
+}
+.keyf-card.k-two figure{
+  background: #acdcc1 !important;
+}
+
+.keyf-card.k-three {
+  background: #f5edfe !important;
+}
+.keyf-card.k-three figure{
+  background: #e1c6fb !important;
+}
+.keyf-card.k-one figure {
+    background: #b9cbea!important;
+}
+section.keyfeature-section .row {
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
 }

@@ -307,7 +307,7 @@ const handleInputScroll = () => {
           <div className="row">
 
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16">
-              <motion.div className="keyf-card" whileInView={{ opacity: 1, y: 0 }}
+              <motion.div className="keyf-card k-one" whileInView={{ opacity: 1, y: 0 }}
                  initial={{ opacity: 0, y: 50 }}
               
                 transition={{ duration: 0.4, delay: .6 }}
@@ -320,7 +320,7 @@ const handleInputScroll = () => {
               </motion.div>
             </div>
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16">
-              <motion.div className="keyf-card" whileInView={{ opacity: 1, y: 0 }}
+              <motion.div className="keyf-card k-two" whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 50 }}
                 
                 transition={{ duration: 0.4, delay: .9 }}
@@ -333,7 +333,7 @@ const handleInputScroll = () => {
               </motion.div>
             </div>
             <div className="col-lg-4 col-md-12 col-sm-12 col-12 p-16">
-              <motion.div className="keyf-card" whileInView={{ opacity: 1, y: 0 }}
+              <motion.div className="keyf-card k-three" whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 50 }}
                
                 transition={{ duration: 0.4, delay: 1.5 }}
@@ -350,7 +350,7 @@ const handleInputScroll = () => {
         </div>
       </section>
       {/* generate url starts here     */}
-      {/* <section id="generate-section" className="p-80">
+       <section id="generate-section" className="p-80">
         <div className="container" >
           <motion.div className="text-center subheading" whileInView={{ opacity: 1, y: 0 }}
              initial={{ opacity: 0, y: 50 }}
@@ -368,7 +368,7 @@ const handleInputScroll = () => {
 
           </motion.div>
         </div>
-      </section> */}
+      </section> 
       {/* how its works starts here     */}
       <section className="howitswork-section grey-bg p-80">
         <div className="container">

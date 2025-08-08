@@ -798,12 +798,12 @@ img.greennormalarrow {
 
 .greenuparrow {
   height: 60px;
-  transform: rotate(362deg);
-  position: absolute;
-  top: 0;
-  right: -170px;
-  z-index: 9;
-  width: 333px;
+    transform: rotate(362deg);
+    position: absolute;
+    top: 0;
+    right: -160px;
+    z-index: 9;
+    width: 313px;
 }
 
 

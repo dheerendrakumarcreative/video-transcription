@@ -14,6 +14,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 function Transcript() {
   
+  const [currentActive, setCurrentActive] = useState("");
   const [transcript, setTranscript] = useState("");
   const [source, setSource] = useState({firstUrlSource: "first url", secondUrlSource: "second url"});
   const [plan, setPlan] = useState([]);
@@ -42,6 +43,7 @@ function Transcript() {
   const [statusSecond, setStatusSecond] = useState({ message: [], isCompleted: false });
   console.log("pro", progress)
   const handleGenerate = () => {
+    setCurrentActive('first')
     setTranscript("");
     setProgress(0)
     setPlan([]);
@@ -113,6 +115,7 @@ function Transcript() {
       });
   };
   const handleGenerateSecond = () => {
+    setCurrentActive("second")
     setProgressSecond(0);
     setTranscriptSecond("");
     setPlanSecond([]);
@@ -324,14 +327,14 @@ function Transcript() {
      <>
      <nav className="url-tabs">
           <div className="nav nav-tabs" id="nav-tab" role="tablist">
-            <button disabled={!status.message || status.message?.length === 0} className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">{source?.firstUrlSource} </button>
-            <button disabled={!statusSecond.message || statusSecond.message?.length === 0} className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">{source.secondUrlSource}</button>
+            <button onClick={() => setCurrentActive("first")} disabled={!status.message || status.message?.length === 0} className={`nav-link ${currentActive === "first" ? "active" : "" }`} >{source?.firstUrlSource} </button>
+            <button onClick={() => setCurrentActive("second")} disabled={!statusSecond.message || statusSecond.message?.length === 0} className={`nav-link ${currentActive === "second" ? "active" : "" }`}  >{source.secondUrlSource}</button>
           </div>
       </nav>
 
 
       <div className="tab-content" id="nav-tabContent">
-        <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div className={`tab-pane fade ${currentActive === "first" ? "show active" : "" }`} id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <div className="genererated-content">
             <div className="row">
               {/* <div className="col-lg-12 col-md-12 col-sm-12 col-12 p-16">
@@ -394,7 +397,10 @@ function Transcript() {
 
           </div>
         </div>
-        <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+
+        
+        <div className={`tab-pane fade ${currentActive === "second" ? "show active" : "" }`} id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
               <div className="genererated-content">
             <div className="row">
               {/* <div className="col-lg-6 col-md-12 col-sm-12 col-12 p-16">
